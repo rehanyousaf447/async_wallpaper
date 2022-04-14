@@ -5,10 +5,12 @@ import android.app.Application;
 import android.app.DownloadManager;
 import android.app.WallpaperManager;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Pair;
 import android.net.Uri;
@@ -16,6 +18,7 @@ import android.content.ContentValues;
 import android.content.*;
 import android.database.Cursor;
 import android.provider.MediaStore;
+import android.view.Display;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -55,12 +58,19 @@ public class AsyncWallpaperPlugin extends Application implements FlutterPlugin, 
     public static Context context;
     private Activity activity;
     public static MethodChannel.Result res;
+    private  int mheight;
+    private  int mwidth;
+
 
     private Target target = new Target() {
         @Override
         public void onBitmapLoaded(Bitmap resource, Picasso.LoadedFrom from) {
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + "Image Downloaded");
-            SetWallPaperTask setWallPaperTask = new SetWallPaperTask(context);
+            //            DisplayMetrics displayMetrics = new DisplayMetrics();
+//            activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//            int height = displayMetrics.heightPixels;
+//            int width = displayMetrics.widthPixels;
+            SetWallPaperTask setWallPaperTask = new SetWallPaperTask(context, mheight, mwidth);
             setWallPaperTask.execute(new Pair(resource, "1"));
         }
 
@@ -76,7 +86,11 @@ public class AsyncWallpaperPlugin extends Application implements FlutterPlugin, 
         @Override
         public void onBitmapLoaded(Bitmap resource, Picasso.LoadedFrom from) {
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + "Image Downloaded");
-            SetWallPaperTask setWallPaperTask = new SetWallPaperTask(context);
+//            DisplayMetrics displayMetrics = new DisplayMetrics();
+//            activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//            int height = displayMetrics.heightPixels;
+//            int width = displayMetrics.widthPixels;
+            SetWallPaperTask setWallPaperTask = new SetWallPaperTask(context, mheight, mwidth);
             setWallPaperTask.execute(new Pair(resource, "2"));
         }
 
@@ -92,7 +106,11 @@ public class AsyncWallpaperPlugin extends Application implements FlutterPlugin, 
         @Override
         public void onBitmapLoaded(Bitmap resource, Picasso.LoadedFrom from) {
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + "Image Downloaded");
-            SetWallPaperTask setWallPaperTask = new SetWallPaperTask(context);
+//            DisplayMetrics displayMetrics = new DisplayMetrics();
+//            activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//            int height = displayMetrics.heightPixels;
+//            int width = displayMetrics.widthPixels;
+            SetWallPaperTask setWallPaperTask = new SetWallPaperTask(context, mheight, mwidth);
             setWallPaperTask.execute(new Pair(resource, "3"));
         }
 
@@ -108,7 +126,11 @@ public class AsyncWallpaperPlugin extends Application implements FlutterPlugin, 
         @Override
         public void onBitmapLoaded(Bitmap resource, Picasso.LoadedFrom from) {
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + "Image Downloaded");
-            SetWallPaperTask setWallPaperTask = new SetWallPaperTask(context);
+//            DisplayMetrics displayMetrics = new DisplayMetrics();
+//            activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//            int height = displayMetrics.heightPixels;
+//            int width = displayMetrics.widthPixels;
+            SetWallPaperTask setWallPaperTask = new SetWallPaperTask(context, mheight, mwidth);
             setWallPaperTask.execute(new Pair(resource, "4"));
         }
 
@@ -160,42 +182,56 @@ public class AsyncWallpaperPlugin extends Application implements FlutterPlugin, 
             // result.success(1);
         } else if (call.method.equals("set_wallpaper_file")) {
             String url = call.argument("url"); // .argument returns the correct type
+            mheight=call.argument("height");
+            mwidth=call.argument("width");
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + url);
             Picasso.get().load("file://" + url).into(target);
             // result.success(1);
 
         } else if (call.method.equals("set_lock_wallpaper")) {
-            String url = call.argument("url"); // .argument returns the correct type
+            String url = call.argument("url");// .argument returns the correct type
+            mheight=call.argument("height");
+            mwidth=call.argument("width");
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + url);
             Picasso.get().load(url).into(target1);
             // result.success(1);
 
         } else if (call.method.equals("set_home_wallpaper")) {
             String url = call.argument("url"); // .argument returns the correct type
+            mheight=call.argument("height");
+            mwidth=call.argument("width");
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + url);
             Picasso.get().load(url).into(target2);
             // result.success(1);
 
         } else if (call.method.equals("set_both_wallpaper")) {
             String url = call.argument("url"); // .argument returns the correct type
+            mheight=call.argument("height");
+            mwidth=call.argument("width");
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + url);
             Picasso.get().load(url).into(target3);
             // result.success(1);
 
         } else if (call.method.equals("set_lock_wallpaper_file")) {
             String url = call.argument("url"); // .argument returns the correct type
+            mheight=call.argument("height");
+            mwidth=call.argument("width");
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + url);
             Picasso.get().load("file://" + url).into(target1);
             // result.success(1);
 
         } else if (call.method.equals("set_home_wallpaper_file")) {
             String url = call.argument("url"); // .argument returns the correct type
+            mheight=call.argument("height");
+            mwidth=call.argument("width");
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + url);
             Picasso.get().load("file://" + url).into(target2);
             // result.success(1);
 
         } else if (call.method.equals("set_both_wallpaper_file")) {
             String url = call.argument("url"); // .argument returns the correct type
+            mheight=call.argument("height");
+            mwidth=call.argument("width");
             android.util.Log.i("Arguments ", "configureFlutterEngine: " + url);
             Picasso.get().load("file://" + url).into(target3);
             // result.success(1);
@@ -253,13 +289,22 @@ public class AsyncWallpaperPlugin extends Application implements FlutterPlugin, 
 class SetWallPaperTask extends AsyncTask<Pair<Bitmap, String>, Boolean, Boolean> {
 
     private final Context mContext;
+    private final int mheight;
+    private final int mwidth;
 
-    public SetWallPaperTask(final Context context) {
+
+
+
+    public SetWallPaperTask(final Context context, final int height, final int width) {
         mContext = context;
+        mheight = height;
+        mwidth = width;
+
     }
 
     @Override
     protected final Boolean doInBackground(Pair<Bitmap, String>... pairs) {
+
         switch (pairs[0].second) {
             case "1": {
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
@@ -270,9 +315,7 @@ class SetWallPaperTask extends AsyncTask<Pair<Bitmap, String>, Boolean, Boolean>
                     Uri contentURI = getImageContentUri(mContext, finalFile.getAbsolutePath());
                     Log.i("Arguments ", "configureFlutterEngine: " + "Opening crop intent");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//                        final Intent intentCrop = wallpaperManager.getCropAndSetWallpaperIntent(contentURI);
-//                        intentCrop.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        mContext.startActivity(wallpaperManager.getCropAndSetWallpaperIntent(contentURI).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                        mContext.startActivity(wallpaperManager.getCropAndSetWallpaperIntent(contentURI));
                     }
                     // wallpaperManager.setBitmap(pairs[0].first);
                 } catch (Exception ex) {
@@ -284,6 +327,9 @@ class SetWallPaperTask extends AsyncTask<Pair<Bitmap, String>, Boolean, Boolean>
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+                        wallpaperManager.setWallpaperOffsetSteps(1,1);
+                        wallpaperManager.suggestDesiredDimensions(mwidth, mheight);
                         wallpaperManager.setBitmap(pairs[0].first, null, true, WallpaperManager.FLAG_LOCK);
                     }
                 } catch (IOException ex) {
@@ -296,6 +342,8 @@ class SetWallPaperTask extends AsyncTask<Pair<Bitmap, String>, Boolean, Boolean>
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        wallpaperManager.setWallpaperOffsetSteps(1,1);
+                        wallpaperManager.suggestDesiredDimensions(mwidth, mheight);
                         wallpaperManager.setBitmap(pairs[0].first, null, true, WallpaperManager.FLAG_SYSTEM);
                     }
                 } catch (IOException ex) {
@@ -308,8 +356,10 @@ class SetWallPaperTask extends AsyncTask<Pair<Bitmap, String>, Boolean, Boolean>
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        wallpaperManager.setBitmap(pairs[0].first, null, true,
-                                WallpaperManager.FLAG_LOCK | WallpaperManager.FLAG_SYSTEM);
+                        wallpaperManager.setWallpaperOffsetSteps(1,1);
+                        wallpaperManager.suggestDesiredDimensions(mwidth, mheight);
+                        wallpaperManager.setBitmap(pairs[0].first, null, true, WallpaperManager.FLAG_LOCK );
+                        wallpaperManager.setBitmap(pairs[0].first, null, true, WallpaperManager.FLAG_SYSTEM);
                     }
                 } catch (IOException ex) {
                     ex.printStackTrace();
