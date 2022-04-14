@@ -25,21 +25,21 @@ class AsyncWallpaper {
   }
 
   /// Function takes input url's image & location choice, and applies wallpaper depending on location choice
-  static Future<String> setWallpaper(String url, int wallpaperLocation) async {
+  static Future<String> setWallpaper(String url, int wallpaperLocation,int width,int height) async {
     /// Variable to store operation result
     bool result = false;
     switch (wallpaperLocation) {
       case HOME_SCREEN:
         result =
-            await (_channel.invokeMethod('set_home_wallpaper', {'url': url}));
+            await (_channel.invokeMethod('set_home_wallpaper', {'url': url,"width":width,"height":height}));
         break;
       case LOCK_SCREEN:
         result =
-            await (_channel.invokeMethod('set_lock_wallpaper', {'url': url}));
+            await (_channel.invokeMethod('set_lock_wallpaper', {'url': url,"width":width,"height":height}));
         break;
       case BOTH_SCREENS:
         result =
-            await (_channel.invokeMethod('set_both_wallpaper', {'url': url}));
+            await (_channel.invokeMethod('set_both_wallpaper', {'url': url,"width":width,"height":height}));
         break;
       default:
         result = false;
