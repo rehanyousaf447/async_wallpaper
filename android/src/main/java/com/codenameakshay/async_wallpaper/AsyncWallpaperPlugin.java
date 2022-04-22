@@ -328,7 +328,7 @@ class SetWallPaperTask extends AsyncTask<Pair<Bitmap, String>, Boolean, Boolean>
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-                        wallpaperManager.setWallpaperOffsetSteps(1,1);
+                       // wallpaperManager.setWallpaperOffsetSteps(1,1);
                         wallpaperManager.suggestDesiredDimensions(mwidth, mheight);
                         wallpaperManager.setBitmap(pairs[0].first, null, true, WallpaperManager.FLAG_LOCK);
                     }
@@ -342,7 +342,7 @@ class SetWallPaperTask extends AsyncTask<Pair<Bitmap, String>, Boolean, Boolean>
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        wallpaperManager.setWallpaperOffsetSteps(1,1);
+                      //  wallpaperManager.setWallpaperOffsetSteps(1,1);
                         wallpaperManager.suggestDesiredDimensions(mwidth, mheight);
                         wallpaperManager.setBitmap(pairs[0].first, null, true, WallpaperManager.FLAG_SYSTEM);
                     }
@@ -356,7 +356,7 @@ class SetWallPaperTask extends AsyncTask<Pair<Bitmap, String>, Boolean, Boolean>
                 WallpaperManager wallpaperManager = WallpaperManager.getInstance(mContext);
                 try {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        wallpaperManager.setWallpaperOffsetSteps(1,1);
+                      //  wallpaperManager.setWallpaperOffsetSteps(1,1);
                         wallpaperManager.suggestDesiredDimensions(mwidth, mheight);
                         wallpaperManager.setBitmap(pairs[0].first, null, true, WallpaperManager.FLAG_LOCK );
                         wallpaperManager.setBitmap(pairs[0].first, null, true, WallpaperManager.FLAG_SYSTEM);
